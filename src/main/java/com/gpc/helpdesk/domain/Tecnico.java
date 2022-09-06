@@ -1,5 +1,6 @@
 package com.gpc.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gpc.helpdesk.domain.enums.Perfil;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 public class Tecnico extends Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList();
 
