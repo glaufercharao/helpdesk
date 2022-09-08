@@ -1,14 +1,18 @@
 package com.gpc.helpdesk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gpc.helpdesk.domain.enums.Perfil;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TecnicoDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    protected Long id;
 
     protected String nome;
 
@@ -22,13 +26,28 @@ public class TecnicoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public TecnicoDTO(String nome, String cpf, String email, String senha, Set<Integer> perfis, LocalDate dataCriacao) {
+    public TecnicoDTO() {
+        super();
+        addPerfil(Perfil.CLIENTE);
+
+    }
+
+    public TecnicoDTO(Long id, String nome, String cpf, String email, String senha, Set<Perfil> perfis, LocalDate dataCriacao) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-        this.perfis = perfis;
+        this.perfis = perfis.stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
         this.dataCriacao = dataCriacao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -63,12 +82,12 @@ public class TecnicoDTO implements Serializable {
         this.senha = senha;
     }
 
-    public Set<Integer> getPerfis() {
-        return perfis;
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
-    public void setPerfis(Set<Integer> perfis) {
-        this.perfis = perfis;
+    public void addPerfil(Perfil perfil) {
+        this.perfis.add(perfil.getCodigo());
     }
 
     public LocalDate getDataCriacao() {
