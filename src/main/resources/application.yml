@@ -1,4 +1,6 @@
 spring:
   profiles:
     active: dev
-
+jwt:
+  secret: Teste
+  expiration: 180000

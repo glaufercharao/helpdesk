@@ -37,4 +37,12 @@ public class TecnicoResource {
                 .buildAndExpand(tecnicoCreated.getId()).toUri();
         return ResponseEntity.created(uri).body(tecnicoCreated);
     }
+
+    @PostMapping(value = "/{id}")
+    public ResponseEntity<TecnicoDTO> update(@Valid @RequestParam Long id, @RequestBody TecnicoDTO tecnicoDTO){
+        TecnicoDTO tecnicoCreated = serviceTecnico.save(tecnicoDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(tecnicoCreated.getId()).toUri();
+        return ResponseEntity.created(uri).body(tecnicoCreated);
+    }
 }
