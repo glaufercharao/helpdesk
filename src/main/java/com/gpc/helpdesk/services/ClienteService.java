@@ -2,14 +2,12 @@ package com.gpc.helpdesk.services;
 
 import com.gpc.helpdesk.domain.Cliente;
 import com.gpc.helpdesk.domain.Pessoa;
-import com.gpc.helpdesk.domain.Tecnico;
 import com.gpc.helpdesk.dtos.ClienteDTO;
-import com.gpc.helpdesk.dtos.TecnicoDTO;
 import com.gpc.helpdesk.exception.standard.DataIntegrityViolationException;
 import com.gpc.helpdesk.exception.standard.ObjectNotFoundException;
 import com.gpc.helpdesk.mapper.Mappable;
+import com.gpc.helpdesk.repositories.ClienteRepository;
 import com.gpc.helpdesk.repositories.PessoaRespository;
-import com.gpc.helpdesk.repositories.ClienteRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,7 @@ import java.util.Optional;
 public class ClienteService implements Mappable {
 
     @Autowired
-    private ClienteRespository respository;
+    private ClienteRepository respository;
 
     @Autowired
     private PessoaRespository pessoaRespository;
@@ -34,7 +32,7 @@ public class ClienteService implements Mappable {
                 .orElseThrow(() -> new ObjectNotFoundException("objeto não encontrado! ID: "+ id)), ClienteDTO.class);
     }
 
-    public List<ClienteDTO> finAll() {
+    public List<ClienteDTO> findAll() {
         return map(respository.findAll(), ClienteDTO.class);
     }
 
