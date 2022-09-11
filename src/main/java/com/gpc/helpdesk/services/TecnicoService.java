@@ -7,7 +7,7 @@ import com.gpc.helpdesk.exception.standard.DataIntegrityViolationException;
 import com.gpc.helpdesk.exception.standard.ObjectNotFoundException;
 import com.gpc.helpdesk.mapper.Mappable;
 import com.gpc.helpdesk.repositories.PessoaRespository;
-import com.gpc.helpdesk.repositories.TecnicoRespository;
+import com.gpc.helpdesk.repositories.ClienteRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.Optional;
 public class TecnicoService implements Mappable {
 
     @Autowired
-    private TecnicoRespository respository;
+    private ClienteRespository respository;
 
     @Autowired
     private PessoaRespository pessoaRespository;
