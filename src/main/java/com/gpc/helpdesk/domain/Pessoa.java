@@ -2,6 +2,7 @@ package com.gpc.helpdesk.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gpc.helpdesk.domain.enums.Perfil;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,11 +17,16 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
     protected String nome;
+
+    @CPF
     @Column(unique = true)
     protected String cpf;
+
     @Column(unique = true)
     protected String email;
+
     protected String senha;
+
     @ElementCollection(fetch = FetchType.EAGER)
     protected Set<Integer> perfis = new HashSet<>();
     @JsonFormat(pattern = "dd/MM/yyyy")

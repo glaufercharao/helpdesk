@@ -41,6 +41,17 @@ public class TecnicoService implements Mappable {
         return  map(respository.save(map(tecnicoDTO, Tecnico.class)), TecnicoDTO.class);
     }
 
+    public TecnicoDTO update(Long id, TecnicoDTO tecnicoDTO) {
+        tecnicoDTO.setId(id);
+        Optional<Tecnico> oldTecnico = respository.findById(id);
+
+        if (oldTecnico.isPresent()) {
+            validCpfAndEmail(tecnicoDTO);
+            return map(respository.save(map(tecnicoDTO, Tecnico.class)), TecnicoDTO.class);
+        }
+       return null;
+    }
+
     private void validCpfAndEmail(TecnicoDTO tecnicoDTO) {
         Optional<Pessoa> pessoa = pessoaRespository.findByCpf(tecnicoDTO.getCpf());
         if(pessoa.isPresent() && pessoa.get().getId() != tecnicoDTO.getId()){

@@ -38,12 +38,12 @@ public class TecnicoResource {
         return ResponseEntity.created(uri).body(tecnicoCreated);
     }
 
-//    @PreAuthorize("hasAnyRole('ADMIN')")
-//    @PostMapping(value = "/{id}")
-//    public ResponseEntity<TecnicoDTO> update(@Valid @RequestParam Long id, @RequestBody TecnicoDTO tecnicoDTO){
-//        TecnicoDTO tecnicoCreated = serviceTecnico.save(tecnicoDTO);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-//                .buildAndExpand(tecnicoCreated.getId()).toUri();
-//        return ResponseEntity.created(uri).body(tecnicoCreated);
-//    }
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TecnicoDTO> update(@RequestParam Long id,@Valid @RequestBody TecnicoDTO tecnicoDTO){
+        TecnicoDTO tecnico = serviceTecnico.update(id, tecnicoDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(tecnico.getId()).toUri();
+        return ResponseEntity.created(uri).body(tecnico);
+    }
 }
