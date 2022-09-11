@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserSecurity implements UserDetails {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String email;

@@ -7,7 +7,7 @@ import com.gpc.helpdesk.exception.standard.DataIntegrityViolationException;
 import com.gpc.helpdesk.exception.standard.ObjectNotFoundException;
 import com.gpc.helpdesk.mapper.Mappable;
 import com.gpc.helpdesk.repositories.ClienteRepository;
-import com.gpc.helpdesk.repositories.PessoaRespository;
+import com.gpc.helpdesk.repositories.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class ClienteService implements Mappable {
     private ClienteRepository respository;
 
     @Autowired
-    private PessoaRespository pessoaRespository;
+    private PessoaRepository pessoaRepository;
 
     public ClienteService(){
 
@@ -53,12 +53,12 @@ public class ClienteService implements Mappable {
     }
 
     private void validCpfAndEmail(ClienteDTO clienteDTO) {
-        Optional<Pessoa> pessoa = pessoaRespository.findByCpf(clienteDTO.getCpf());
+        Optional<Pessoa> pessoa = pessoaRepository.findByCpf(clienteDTO.getCpf());
         if(pessoa.isPresent() && pessoa.get().getId() != clienteDTO.getId()){
             throw new DataIntegrityViolationException("CPF já cadastrado no sistema!");
         }
 
-        pessoa = pessoaRespository.findByEmail(clienteDTO.getEmail());
+        pessoa = pessoaRepository.findByEmail(clienteDTO.getEmail());
         if(pessoa.isPresent() && pessoa.get().getId() != clienteDTO.getId()){
             throw new DataIntegrityViolationException("e-Mail ja cadastrado no sistema!");
         }
