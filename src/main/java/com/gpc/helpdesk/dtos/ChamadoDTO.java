@@ -1,6 +1,8 @@
 package com.gpc.helpdesk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -15,17 +17,23 @@ public class ChamadoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamendo;
 
+    @NotNull(message = "O campo PRIORIDADE é requerido")
     private Integer prioridade;
 
+    @NotNull(message = "O campo STATUS é requerido")
     private Integer status;
 
+    @NotNull(message = "O campo TITULO é requerido")
     private String titulo;
 
+    @NotNull(message = "O campo OBSERVAÇÕES é requerido")
     private String observacoes;
 
-    private Integer tecnico;
+    @NotNull(message = "O campo TECNICO é requerido")
+    private Long tecnico;
 
-    private Integer cliente;
+    @NotNull(message = "O campo CLIENTE é requerido")
+    private Long cliente;
 
     private String nomeTecnico;
 
@@ -91,19 +99,19 @@ public class ChamadoDTO implements Serializable {
         this.observacoes = observacoes;
     }
 
-    public Integer getTecnico() {
+    public Long getTecnico() {
         return tecnico;
     }
 
-    public void setTecnico(Integer tecnico) {
+    public void setTecnico(Long tecnico) {
         this.tecnico = tecnico;
     }
 
-    public Integer getCliente() {
+    public Long getCliente() {
         return cliente;
     }
 
-    public void setCliente(Integer cliente) {
+    public void setCliente(Long cliente) {
         this.cliente = cliente;
     }
 

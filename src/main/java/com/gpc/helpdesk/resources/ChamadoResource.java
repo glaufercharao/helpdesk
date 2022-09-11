@@ -2,14 +2,16 @@ package com.gpc.helpdesk.resources;
 
 import com.gpc.helpdesk.dtos.ChamadoDTO;
 import com.gpc.helpdesk.dtos.ClienteDTO;
+import com.gpc.helpdesk.dtos.TecnicoDTO;
 import com.gpc.helpdesk.services.ChamadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,5 +29,13 @@ public class ChamadoResource {
     @GetMapping
     public ResponseEntity<List<ChamadoDTO>> findAll(){
         return ResponseEntity.ok().body(chamadoService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<ChamadoDTO> create(@Valid @RequestBody ChamadoDTO chamadoDTO){
+        ChamadoDTO  chamadoCreated = chamadoService.save(chamadoDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+                .buildAndExpand(chamadoCreated.getId()).toUri();
+        return ResponseEntity.created(uri).body(chamadoCreated);
     }
 }
