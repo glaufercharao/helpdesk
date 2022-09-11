@@ -63,4 +63,16 @@ public class TecnicoService implements Mappable {
             throw new DataIntegrityViolationException("e-Mail ja cadastrado no sistema!");
         }
     }
+
+    public void deleteById(Long id) {
+        Optional<Tecnico> tecnico = respository.findById(id);
+        if (!tecnico.isPresent()){
+            throw new DataIntegrityViolationException("Tecnico não encontrado!");
+        }
+
+        if (tecnico.get().getChamados().size() > 0) {
+            throw new DataIntegrityViolationException("Tecnico possui ordens de serviço e não pode ser removido do sistema!");
+        }
+        respository.deleteById(id);
+    }
 }

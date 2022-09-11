@@ -46,4 +46,10 @@ public class TecnicoResource {
                 .buildAndExpand(tecnico.getId()).toUri();
         return ResponseEntity.created(uri).body(tecnico);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<TecnicoDTO> delete(@PathVariable Long id) {
+        serviceTecnico.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
