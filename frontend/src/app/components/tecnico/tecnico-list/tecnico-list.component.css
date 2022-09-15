@@ -5,3 +5,18 @@
 table {
     width: 100%;
 }
+
+mat-form-field {
+    width: 100%;
+}
+
+.btnAlign {
+   display: inline;
+   float: right;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+}
