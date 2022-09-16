@@ -28,3 +28,7 @@ button {
     display: inline;
     justify-content: space-between;
 }
+
+mat-icon {
+    opacity: .7;
+}
